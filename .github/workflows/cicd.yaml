@@ -43,8 +43,8 @@ jobs:
     steps:
       - name: "Check out repository code"
         uses: "actions/checkout@v3"
-      - name: "Pull the image"
-        run: "make tag=${{ github.ref_name }} deploy"
+      - name: "Update the image tag"
+        run: "make tag=${{ github.ref_name }} update-tag"
       - name: "Commit changes"
         run: >
           git config --global user.name ${{ github.actor }}
