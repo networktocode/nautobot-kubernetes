@@ -64,6 +64,5 @@ jobs:
         run: >
           git config --global user.name ${{ github.actor }};
           git config --global user.email ${{ github.actor }}@github.action;
-          git checkout -b test02;
           git commit -am "Updating the Docker image tag";
-          git push origin test02;
+          git remote set-url --push origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }};
