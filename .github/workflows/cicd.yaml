@@ -5,6 +5,11 @@ on:
   pull_request:
   release:
 
+permissions:
+  packages: "write"
+  contents: "read"
+  id-token: "write"
+
 jobs:
   lint:
     runs-on: "ubuntu-20.04"
@@ -17,21 +22,11 @@ jobs:
     runs-on: "ubuntu-20.04"
     needs:
       - "lint"
-    permissions:
-      packages: "write"
-      contents: "read"
-      id-token: "write"
     steps:
       - name: "Check out repository code"
         uses: "actions/checkout@v3"
       - name: "Build the image"
         run: "make tag=${{ github.ref_name }} build"
-      # - name: "Login to ghcr.io"
-      #   uses: "docker/login-action@v1"
-      #   with:
-      #     registry: "ghcr.io"
-      #     username: ${{ github.actor }}
-      #     password: ${{ secrets.GITHUB_TOKEN }}
       - name: "Login to ghcr.io"
         run: "echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u USERNAME --password-stdin"
       - name: "Push the image to the repository"
