@@ -10,6 +10,6 @@ nautobot:
   image:
     registry: "ghcr.io"
     repository: "networktocode/nautobot-kubernetes"
-    tag: "v0.0.1"
+    tag: "main"
     pullSecrets:
       - "ghcr.io"
