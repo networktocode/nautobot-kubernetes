@@ -23,4 +23,4 @@ test:
 	@echo "Done."
 
 update-tag:
-	sed -i '' 's/tag: \".*\"/tag: \"$(tag)\"/g' $(values)
+	sed -i 's/tag: \".*\"/tag: \"$(tag)\"/g' $(values)

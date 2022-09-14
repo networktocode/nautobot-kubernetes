@@ -48,9 +48,9 @@ jobs:
         run: "make test"
   deploy:
     runs-on: "ubuntu-20.04"
-    needs:
-      - "test"
-    if: "${{ github.event_name == 'release' }}"
+    # needs:
+    #   - "test"
+    # if: "${{ github.event_name == 'release' }}"
     steps:
       - name: "Check out repository code"
         uses: "actions/checkout@v3"
