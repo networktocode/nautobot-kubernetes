@@ -10,7 +10,7 @@ push:
 	docker push ghcr.io/networktocode/nautobot-kubernetes:$(tag)
 
 pull:
-	docker push ghcr.io/networktocode/nautobot-kubernetes:$(tag)
+	docker pull ghcr.io/networktocode/nautobot-kubernetes:$(tag)
 
 lint:
 	@echo "Linting..."
