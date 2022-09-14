@@ -58,8 +58,8 @@ jobs:
         run: "make tag=${{ github.ref_name }} update-tag"
       - name: "Commit changes"
         run: >
-          git config --global user.name ${{ github.actor }}
-          git config --global user.email ${{ github.actor }}@github.action
-          git checkout -b test02
-          git commit -am "Updating the Docker image tag"
+          git config --global user.name ${{ github.actor }} \
+          git config --global user.email ${{ github.actor }}@github.action \
+          git checkout -b test02 \
+          git commit -am "Updating the Docker image tag" \
           git push origin test02
