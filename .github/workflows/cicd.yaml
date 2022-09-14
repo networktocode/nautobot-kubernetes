@@ -3,6 +3,7 @@ name: "CI/CD"
 on:
   push:
   pull_request:
+  release:
 
 jobs:
   lint:
@@ -38,6 +39,7 @@ jobs:
     runs-on: "ubuntu-20.04"
     needs:
       - "test"
+    if: "${{ github.event_name == 'release' }}"
     steps:
       - name: "Check out repository code"
         uses: "actions/checkout@v3"
