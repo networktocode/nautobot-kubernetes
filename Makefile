@@ -22,5 +22,5 @@ test:
 	@sleep 1
 	@echo "Done."
 
-deploy:
+update-tag:
 	sed -i '' 's/tag: \".*\"/tag: \"$(tag)\"/g' $(values)
