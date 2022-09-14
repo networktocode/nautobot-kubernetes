@@ -48,32 +48,19 @@ jobs:
         run: "make test"
   deploy:
     runs-on: "ubuntu-20.04"
-    # needs:
-    #   - "test"
+    needs:
+      - "test"
     # if: "${{ github.event_name == 'release' }}"
     steps:
       - name: "Check out repository code"
         uses: "actions/checkout@v3"
         with:
-          ref: "deploy"
+          ref: "main"
       - name: "Update the image tag"
         run: "make tag=${{ github.ref_name }} update-tag"
-      - name: debug
-        run: cat ./kubernetes/values.yaml
-      - name: debug
-        run: git diff
       - name: "Commit changes"
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git commit -am "Updating the Docker image tag"
-          git push origin deploy
-
-      # - name: "Commit changes"
-      #   run: >
-      #     git config --global user.name ${{ github.actor }};
-      #     git config --global user.email ${{ github.actor }}@github.action;
-      #     git commit -am "Updating the Docker image tag";
-      #     git remote set-url --push gha https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }};
-      #     git remote -v;
-      #     git push gha gha;
+          git push origin main
