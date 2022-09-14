@@ -9,7 +9,7 @@ on:
 
 permissions:
   packages: "write"
-  contents: "read"
+  contents: "write"
   id-token: "write"
 
 jobs:
@@ -48,22 +48,19 @@ jobs:
         run: "make test"
   deploy:
     runs-on: "ubuntu-20.04"
-    # needs:
-    #   - "test"
-    # if: "${{ github.event_name == 'release' }}"
+    needs:
+      - "test"
+    if: "${{ github.event_name == 'release' }}"
     steps:
       - name: "Check out repository code"
         uses: "actions/checkout@v3"
+        with:
+          ref: "main"
       - name: "Update the image tag"
         run: "make tag=${{ github.ref_name }} update-tag"
-      - name: debug
-        run: cat ./kubernetes/values.yaml
-      - name: debug
-        run: git diff
       - name: "Commit changes"
-        run: >
-          git config --global user.name ${{ github.actor }};
-          git config --global user.email ${{ github.actor }}@github.action;
-          git checkout -b test02;
-          git commit -am "Updating the Docker image tag";
-          git push origin test02;
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git commit -am "Updating the Docker image tag"
+          git push origin main
